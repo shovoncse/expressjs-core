@@ -1,0 +1,26 @@
+{
+  "name": "expresscrashcourse",
+  "version": "1.0.0",
+  "description": "Express.js Crash Course",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon app"
+  },
+  "keywords": [
+    "Express",
+    "JS",
+    "NODE",
+    "JS"
+  ],
+  "author": "Shovon Das",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "moment": "^2.24.0",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
+  }
+}
