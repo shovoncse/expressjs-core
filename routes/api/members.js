@@ -1,33 +1,7 @@
 const express = require('express');
 const uuid = require('uuid');
 const router = express.Router();
-
-const Members = [
-  {
-    id:1,
-    name:'Shovon Das',
-    email:'shovon@gmail.com',
-    status:'active',
-  },
-  {
-    id:2,
-    name:'Asmit Das',
-    email:'asmit@gmail.com',
-    status:'active',
-  },
-  {
-    id:3,
-    name:'Md Sabuj Khan',
-    email:'skhan@gmail.com',
-    status:'notactive',
-  },
-  {
-    id:4,
-    name:'Shameem Hasan',
-    email:'s.hasan@gmail.com',
-    status:'active',
-  },
-];
+const Members = require('./members.js');
 
 
 
@@ -67,6 +41,7 @@ router.post('/', (req, res) => {
   }else{
     Members.push(newMember);
     res.json(Members);
+    // res.redirect('/');
   }
 
 
@@ -85,7 +60,7 @@ router.put('/:id', (req, res) => {
     Members.forEach(mem => {
       if(mem.id === parseInt(req.params.id)){
         mem.name = updateMember.name ? updateMember.name : mem.name;
-        mem.email = updateMember.email ? updateMember.aemail : mem.email;
+        mem.email = updateMember.email ? updateMember.email : mem.email;
 
         res.json({
           msg:'Member updated',
@@ -102,11 +77,18 @@ router.put('/:id', (req, res) => {
 
 
 // Delete a member
-router.delete('/', (req, res) => {
+router.delete('/:id', (req, res) => {
 
   const found = Members.some(mem => mem.id === parseInt(req.params.id));
 
-  res.json(found);
+  if(found){
+
+    res.json({msg:'Member Deleted',Members:Members.filter(mem => mem.id !== parseInt(req.params.id))});
+
+  }else{
+    res.status('400').json({msg:`Member Not Found for ID:${req.params.id}`});
+  }
 
 });
+
 module.exports = router;
